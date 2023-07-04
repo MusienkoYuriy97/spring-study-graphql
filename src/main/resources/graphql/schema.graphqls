@@ -1,9 +1,18 @@
 type Query {
     schools: [School]
+    members: [Member]
 }
 
 type School {
     id: ID!
     name: String!
     address: String!
+    members: [Member]
+}
+
+type Member {
+    id: ID!
+    name: String!
+    school: School!
+    role: String
 }
