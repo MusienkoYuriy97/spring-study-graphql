@@ -1,6 +1,7 @@
 type Query {
     schools: [School]
     members: [Member]
+    membersByRole(role: Role!): [Member]
 }
 
 type School {
@@ -14,5 +15,18 @@ type Member {
     id: ID!
     name: String!
     school: School!
-    role: String
+    role: Role
+    documents: [Document]
+}
+
+type Document {
+    id: ID!
+    name: String!
+    documentNumber: String!
+}
+
+enum Role {
+    STUDENT
+    TEACHER
+    STAFF
 }

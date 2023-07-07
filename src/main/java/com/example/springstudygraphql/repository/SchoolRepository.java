@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface SchoolRepository extends JpaRepository<School, Long> {
-    @Query(value = "select s from School s join fetch s.members")
+//    @EntityGraph(value = "School.members"
+    @Query("select s from School s join fetch s.members")
     List<School> findAll();
 }

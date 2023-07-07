@@ -4,6 +4,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.NamedAttributeNode;
+import jakarta.persistence.NamedEntityGraph;
+import jakarta.persistence.NamedSubgraph;
 import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,7 +23,11 @@ import static jakarta.persistence.CascadeType.MERGE;
 import static jakarta.persistence.CascadeType.PERSIST;
 import static jakarta.persistence.CascadeType.REFRESH;
 
-
+@NamedEntityGraph(name = "School.members",
+        attributeNodes = @NamedAttributeNode(value = "members", subgraph = "School.members.documents"),
+        subgraphs =
+        @NamedSubgraph(name = "School.members.documents", attributeNodes = @NamedAttributeNode("documents"))
+)
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -30,7 +37,9 @@ public class School {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
+
     private String name;
+
     private String address;
 
     @ToString.Exclude
